@@ -65,9 +65,9 @@ export default function UserForm() {
         .then((response) => response.json());
     }
 
-    /*async function handleReset(user) {
+    async function sendReset(user) {
         let url = "http://localhost:8080/api/reset";
-        return await fetch (url, {
+        const response = await fetch (url, {
             method  :   "POST",
             headers :   {
                 "Content-Type"  :   "application/json;charset=utf-8"
@@ -75,7 +75,16 @@ export default function UserForm() {
             body    :   JSON.stringify(user)
         })
         .then((response) => response.json());
-    }*/
+        dispatch(defineDots(response));
+    }
+
+    async function handleReset() {
+        let user = {
+            username: username,
+        }
+        sendReset(user);
+        
+    }
 
     async function handleSubmit() {
         console.log(parseFloat(y))
