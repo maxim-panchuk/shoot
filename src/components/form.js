@@ -65,6 +65,18 @@ export default function UserForm() {
         .then((response) => response.json());
     }
 
+    /*async function handleReset(user) {
+        let url = "http://localhost:8080/api/reset";
+        return await fetch (url, {
+            method  :   "POST",
+            headers :   {
+                "Content-Type"  :   "application/json;charset=utf-8"
+            },
+            body    :   JSON.stringify(user)
+        })
+        .then((response) => response.json());
+    }*/
+
     async function handleSubmit() {
         console.log(parseFloat(y))
         if (validate()) {
@@ -83,7 +95,10 @@ export default function UserForm() {
         }
     }
 
+
+
     return (
+        <>
         <FormControl onSubmit={handleSubmit}>
             <FormLabel id="demo-row-radio-buttons-group-label">X - координата</FormLabel>
             <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group"
@@ -113,5 +128,7 @@ export default function UserForm() {
             
             <Button variant="outlined" style={{marginTop: '30px'}} onClick={handleSubmit}>Outlined</Button>
         </FormControl>
+        <Button variant="outlined" onClick={handleReset}>Reset</Button>
+        </>
       );
 }
