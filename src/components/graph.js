@@ -1,11 +1,41 @@
 import { useSelector, useDispatch } from "react-redux"
 import { pushDot, defineDots } from "../toolkitRedux/toolkitSlice"
 import "../css/graph.css"
+import { useEffect } from "react";
 
-export default function Graph() {
+export default function Graph(props) {
     const dispatch = useDispatch();
-    const radius = useSelector(state => state.toolkit.radius);
     const username = useSelector(state => state.userSlice.username);
+    
+    const radius = props.radius;
+    const dotsArr = props.dotsArr;
+    
+
+    useEffect(() => {
+        function renderDot() {
+            document.querySelectorAll("circle").forEach(item => item.remove())
+            const graph = document.getElementById("area-graph");
+            if (graph !== null) {
+                dotsArr.forEach(element => {
+                    let x = element.x * (140 / radius) + 175
+                    let y = -(element.y * 140 / radius) + 175
+                    let dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                    dot.setAttribute("cx", x);
+                    dot.setAttribute("cy", y);
+                    dot.setAttribute("r", "3");
+                    if (element.result === 'true') {
+                        dot.setAttribute("stroke", "#00ff32");
+                        dot.setAttribute("fill", "#00ff32");
+                    } else {
+                        dot.setAttribute("stroke", "#AD2D2D");
+                        dot.setAttribute("fill", "#AD2D2D");
+                    }
+                    graph.appendChild(dot);
+                });
+            }
+        }
+        renderDot();
+    })
 
     async function sendRequest(coords) {
         let url = "http://localhost:8080/api/shot"

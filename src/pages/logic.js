@@ -16,28 +16,6 @@ export default function Logic() {
         )
     }
 
-    function renderDot() {
-        document.querySelectorAll("circle").forEach(item => item.remove())
-        const graph = document.getElementById("area-graph");
-        dotsArr.forEach(element => {
-            let x = element.x * (140 / radius) + 175
-            let y = -(element.y * 140 / radius) + 175
-            let dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            dot.setAttribute("cx", x);
-            dot.setAttribute("cy", y);
-            dot.setAttribute("r", "3");
-            if (element.result === 'true') {
-                dot.setAttribute("stroke", "#00ff32");
-                dot.setAttribute("fill", "#00ff32");
-            } else {
-                dot.setAttribute("stroke", "#AD2D2D");
-                dot.setAttribute("fill", "#AD2D2D");
-            }
-            graph.appendChild(dot);
-        });
-    }
-    renderDot();
-
     return (
         <>
         <header>
@@ -87,7 +65,7 @@ export default function Logic() {
                 gridAutoFlow: 'row',
                 marginTop: 3
             }}>
-            <Box sx={{gridColumn: '1', gridRow: '1/1'}}><Graph /></Box>
+            <Box sx={{gridColumn: '1', gridRow: '1/1'}}><Graph radius={radius} dotsArr={dotsArr} /></Box>
             <Box sx={{gridColumn: '2', gridRow: '1/1'}}><UserForm /></Box>
             <Box sx={{gridColumn: '3', gridRow: '1/1'}}><UserTable /></Box>
         </Box>

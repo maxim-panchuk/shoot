@@ -3,18 +3,20 @@ import { defineUser } from "../toolkitRedux/userSlice";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { defineDots } from "../toolkitRedux/toolkitSlice";
 
 export default function Login() {
     const dispatch = useDispatch();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    //const [isLogged, setLogged] = useState(false);
+    const usr = useSelector(item => item.userSlice.username);
+    console.log(usr)
 
-    if(useSelector(item => item.userSlice.username) !== 'initial_username') {
+    if(usr !== 'initial_username') {
         return (
             <Navigate to="/logic" />
         )
@@ -22,16 +24,18 @@ export default function Login() {
 
     async function sendRequest(user) {
         let url = "http://localhost:8080/api/login"
-        let response = await fetch (url, {
+        const response = await fetch (url, {
             method  :   "POST",
             headers :   {
                 "Content-Type"  :   "application/json;charset=utf-8"
             },
             body    :   JSON.stringify(user)
 
-        })
+        }).then(response => response.json());
+
         if (response.status !== 400) {
-            dispatch(defineUser(username))
+            dispatch(defineUser(username));
+            dispatch(defineDots(response));
         }
     }
 
