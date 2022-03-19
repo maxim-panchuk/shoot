@@ -1,19 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserForm from "../components/form";
 import Graph from "../components/graph";
 import UserTable from "../components/userTable";
 import Box from '@mui/material/Box';
 import { AppBar, Typography } from "@mui/material";
 import { Navigate } from 'react-router-dom';
+import { defineUser } from "../toolkitRedux/userSlice";
+import Button from '@mui/material/Button';
 
 export default function Logic() {
+    const dispatch = useDispatch();
+
     const radius = useSelector(state => state.toolkit.radius);
     const dotsArr = useSelector(state => state.toolkit.dots);
     const username = useSelector(state => state.userSlice.username);
+
     if (username === 'initial_username') {
         return (
             < Navigate to="/login" />
         )
+    }
+
+    function handleLogOut() {
+        dispatch(defineUser("initial_username"))
     }
 
     return (
@@ -69,6 +78,8 @@ export default function Logic() {
             <Box sx={{gridColumn: '2', gridRow: '1/1'}}><UserForm /></Box>
             <Box sx={{gridColumn: '3', gridRow: '1/1'}}><UserTable /></Box>
         </Box>
+
+        <Button variant="outlined" onClick={handleLogOut}>Log Out</Button>
         </>
     )
 }

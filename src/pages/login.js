@@ -3,10 +3,10 @@ import { defineUser } from "../toolkitRedux/userSlice";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
 import { defineDots } from "../toolkitRedux/toolkitSlice";
+import { Navigate } from 'react-router-dom'
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -14,7 +14,6 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const usr = useSelector(item => item.userSlice.username);
-    console.log(usr)
 
     if(usr !== 'initial_username') {
         return (

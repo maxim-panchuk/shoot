@@ -87,7 +87,6 @@ export default function UserForm() {
     }
 
     async function handleSubmit() {
-        console.log(parseFloat(y))
         if (validate()) {
             let coords = {
                 x: x,

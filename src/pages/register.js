@@ -9,9 +9,7 @@ import { Navigate } from "react-router-dom";
 
 
 export default function Register() {
-    console.log(useSelector(store => store.userSlice.username));
     const dispatch = useDispatch();
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repPassword, setRepPassword] = useState("");
