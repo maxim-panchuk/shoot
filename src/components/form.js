@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeRadius, changeX, changeY, pushDot, defineDots } from "../toolkitRedux/toolkitSlice"
+import { changeRadius, changeX, changeY, defineDots } from "../toolkitRedux/toolkitSlice"
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,8 +9,11 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import { useState } from "react";
 
 export default function UserForm() {
+
+    const [err, setErr] = useState("");
 
     const dispatch = useDispatch();
     const x = useSelector(state => state.toolkit.x);
@@ -32,6 +35,7 @@ export default function UserForm() {
     }
 
     function validate() {
+        setErr("data validation err");
         if (isNaN(y)) {
             console.log("Y must be a number!")
             return false;
@@ -50,6 +54,7 @@ export default function UserForm() {
         if (radius === "") {
             return false
         }
+        setErr("");
         return true;
     }
 
@@ -119,7 +124,7 @@ export default function UserForm() {
                 <FormControlLabel value={2} control={<Radio />} label="2" />
                 <FormControlLabel value={3} control={<Radio />} label="3" />
             </RadioGroup>
-
+            <div className="text-danger">{err}</div>
             <TextField id="standard-basic" label="Y - координата" variant="standard" onChange={handleChangeY} value={y} />
             
             <Select labelId="demo-simple-select-standard-label" id="demo-simple-select-standard" 

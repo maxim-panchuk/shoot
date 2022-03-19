@@ -14,7 +14,9 @@ export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [err, setErr] = useState("");
     const usr = useSelector(item => item.userSlice.username);
+
 
     if(usr !== 'initial_username') {
         return (
@@ -32,8 +34,9 @@ export default function Login() {
             body    :   JSON.stringify(user)
 
         }).then(response => response.json());
-
+        
         if (response.status !== 400) {
+            setErr("");
             dispatch(defineUser(username));
             dispatch(defineDots(response));
         }
@@ -46,11 +49,15 @@ export default function Login() {
             password    :   password
         }
         sendRequest(user);
+        setErr("Auth failed")
     }
 
         return (
+            <>
+            <h1>Авторизация</h1>
             <Container className="col-3" style={{ marginTop: '100px'}}>
             <Form onSubmit={handleSubmit}>
+                <div className="text-danger">{err}</div>
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" placeholder="enter username" 
@@ -65,6 +72,7 @@ export default function Login() {
                 <Link to="/register" element={<Register/>}>Register</Link>
             </Form>
             </Container>
-            
+            <p>{err}</p>
+            </>
         )
 }

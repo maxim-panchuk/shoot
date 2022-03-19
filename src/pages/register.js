@@ -13,6 +13,7 @@ export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repPassword, setRepPassword] = useState("");
+    const [err, setErr] = useState("");
 
     if(useSelector(item => item.userSlice.username) !== 'initial_username') {
         return (
@@ -38,19 +39,21 @@ export default function Register() {
     async function handleSubmit(event) {
         event.preventDefault();
         if (password !== repPassword) {
-            alert("passwords don't match")
+            setErr("Passwords don't match");
         } else {
             let user = {
                 username    :   username,
                 password    :   password
             }
             sendRequest(user);
+            setErr("User already exists");
         }
     }
     
     return (
         <Container className="col-3" style={{ marginTop: '100px'}}>  
         <Form onSubmit={handleSubmit}>
+            <div className="text-danger">{err}</div>
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" placeholder="enter username" 
