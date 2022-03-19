@@ -6,7 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { defineDots } from "../toolkitRedux/toolkitSlice";
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import Register from "./register";
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -60,10 +61,10 @@ export default function Login() {
                     <Form.Control type="password" placeholder="enter your password" 
                     onChange={(event) => setPassword(event.target.value)}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">login</Button>
+                <Link to="/register" element={<Register/>}>Register</Link>
             </Form>
             </Container>
             
         )
-    
 }

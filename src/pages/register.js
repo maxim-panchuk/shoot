@@ -5,8 +5,8 @@ import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { defineUser } from '../toolkitRedux/userSlice';
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
-
+import { Navigate, Link } from "react-router-dom";
+import Login from "./login"
 
 export default function Register() {
     const dispatch = useDispatch();
@@ -66,7 +66,8 @@ export default function Register() {
                 <Form.Control type="password" placeholder="repeat your password" 
                     onChange={(event) => setRepPassword(event.target.value)}/>
             </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button variant="primary" type="submit">Register</Button>
+            <Link to="/login" element={<Login />}>Login</Link>
         </Form>
         </Container>
         )
