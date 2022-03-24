@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { defineUser, defineAuth } from "../toolkitRedux/userSlice";
+import { defineUser } from "../toolkitRedux/userSlice";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,12 +14,8 @@ export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    
-    const err = useSelector(item => item.userSlice.auth);
+    const [error, setError] = useState("");
     const usr = useSelector(item => item.userSlice.username);
-
-    dispatch(defineUser('initial_username'))
-    //dispatch(defineAuth(""))
 
     if(usr !== 'initial_username') {
         return (
@@ -29,20 +25,20 @@ export default function Login() {
 
     async function sendRequest(user) {
         let url = "http://localhost:8080/api/login"
-        const response = await fetch (url, {
+        let response = await fetch (url, {
             method  :   "POST",
             headers :   {
                 "Content-Type"  :   "application/json;charset=utf-8"
             },
             body    :   JSON.stringify(user)
         }).then(response => response.json());
-        
-        if (response.status === 200) {
-            dispatch(defineAuth(""));
+
+        if (response[0] !== null) {
+            setError("");
             dispatch(defineUser(username));
             dispatch(defineDots(response));
         } else {
-            dispatch(defineAuth("auth failed"));
+            setError("auth failed");
         }
     }
 
@@ -57,10 +53,10 @@ export default function Login() {
 
         return (
             <>
-            <h1>Авторизация</h1>
             <Container className="col-3" style={{ marginTop: '100px'}}>
             <Form onSubmit={handleSubmit}>
-                <div className="text-danger">{err}</div>
+                <h3>Авторизация</h3>
+                <div className="text-danger">{error}</div>
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" placeholder="enter username" 

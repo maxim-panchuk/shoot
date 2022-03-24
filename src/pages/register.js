@@ -13,7 +13,8 @@ export default function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repPassword, setRepPassword] = useState("");
-    const [err, setErr] = useState("");
+
+    const[error, setError] = useState("");
 
     if(useSelector(item => item.userSlice.username) !== 'initial_username') {
         return (
@@ -31,29 +32,32 @@ export default function Register() {
             body    :   JSON.stringify(user)
 
         })
-        if (response.status !== 400) {
-            dispatch(defineUser(username))
+        if (response.status === 400) {
+            setError("user already exists");
+        } else {
+            dispatch(defineUser(username));
         }
+        
     }
     
     async function handleSubmit(event) {
         event.preventDefault();
         if (password !== repPassword) {
-            setErr("Passwords don't match");
+            setError("passwords don't match");
         } else {
             let user = {
                 username    :   username,
                 password    :   password
             }
             sendRequest(user);
-            setErr("User already exists");
         }
     }
     
     return (
         <Container className="col-3" style={{ marginTop: '100px'}}>  
         <Form onSubmit={handleSubmit}>
-            <div className="text-danger">{err}</div>
+            <h3>Регистрация</h3>
+            <div className="text-danger">{error}</div>
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" placeholder="enter username" 
