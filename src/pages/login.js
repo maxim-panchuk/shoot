@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { defineUser } from "../toolkitRedux/userSlice";
+import { defineUser, defineAuth } from "../toolkitRedux/userSlice";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,9 +14,9 @@ export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [err, setErr] = useState("");
+    
+    //const err = useSelector(item => item.userSlice.auth);
     const usr = useSelector(item => item.userSlice.username);
-
 
     if(usr !== 'initial_username') {
         return (
@@ -32,11 +32,10 @@ export default function Login() {
                 "Content-Type"  :   "application/json;charset=utf-8"
             },
             body    :   JSON.stringify(user)
-
-        }).then(response => response.json());
+        }).then(response => response.json())
         
+        console.log(response)
         if (response.status !== 400) {
-            setErr("");
             dispatch(defineUser(username));
             dispatch(defineDots(response));
         }
@@ -49,7 +48,7 @@ export default function Login() {
             password    :   password
         }
         sendRequest(user);
-        setErr("Auth failed")
+
     }
 
         return (
@@ -57,7 +56,7 @@ export default function Login() {
             <h1>Авторизация</h1>
             <Container className="col-3" style={{ marginTop: '100px'}}>
             <Form onSubmit={handleSubmit}>
-                <div className="text-danger">{err}</div>
+       
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" placeholder="enter username" 
@@ -72,7 +71,6 @@ export default function Login() {
                 <Link to="/register" element={<Register/>}>Register</Link>
             </Form>
             </Container>
-            <p>{err}</p>
             </>
         )
 }
