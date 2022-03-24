@@ -7,6 +7,8 @@ import { defineUser } from '../toolkitRedux/userSlice';
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import Login from "./login"
+import Box from '@mui/material/Box';
+import { AppBar, Typography } from "@mui/material";
 
 export default function Register() {
     const dispatch = useDispatch();
@@ -54,6 +56,47 @@ export default function Register() {
     }
     
     return (
+        <>
+        <header>
+            <AppBar position="static" style={{height: 50}}>
+                <Box 
+                    sx={{
+                    display: 'grid',
+                    gridAutoFlow: 'row',
+                    justifyContent: 'space-around',
+                    alignItems: 'center'
+                    
+                }}>
+                    <Box sx={{gridColumn: '1', gridRow: '1/1'}}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                            P3214
+                        </Typography>
+                    </Box>
+                    <Box sx={{gridColumn: '2', gridRow: '1/1'}}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                            Панчук Максим
+                        </Typography>
+                    </Box>
+                    <Box sx={{gridColumn: '3', gridRow: '1/1'}}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                            Lab 4
+                        </Typography>
+                    </Box>
+                </Box>
+            </AppBar>
+        </header>
         <Container className="col-3" style={{ marginTop: '100px'}}>  
         <Form onSubmit={handleSubmit}>
             <h3>Регистрация</h3>
@@ -74,8 +117,9 @@ export default function Register() {
                     onChange={(event) => setRepPassword(event.target.value)}/>
             </Form.Group>
             <Button variant="primary" type="submit">Register</Button>
-            <Link to="/login" element={<Login />}>Login</Link>
+            <Link style={{ marginLeft: "20px"}} to="/login" element={<Login />}>Login</Link>
         </Form>
         </Container>
+        </>
         )
 }

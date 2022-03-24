@@ -67,7 +67,7 @@ export default function Logic() {
                 </Box>
             </AppBar>
         </header>
-
+        <Button style={{marginTop: '5px', marginLeft: '10px'}} variant="outlined" onClick={handleLogOut}>Log Out</Button>
         <Box 
             sx={{
                 display: 'grid',
@@ -79,7 +79,7 @@ export default function Logic() {
             <Box sx={{gridColumn: '3', gridRow: '1/1'}}><UserTable /></Box>
         </Box>
 
-        <Button variant="outlined" onClick={handleLogOut}>Log Out</Button>
+        
         </>
     )
 }
