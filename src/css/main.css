@@ -1,0 +1,19 @@
+@media screen and (min-width: 1070px) {
+    .table {
+
+        float: left;
+        width: 25%;
+        overflow-y: auto;
+        overflow-x: auto;
+        /*height: 600px;*/
+        height: 600px;
+        background-color: white;
+        /*line-height: 40px;*/
+    }
+}
+
+@media screen and (min-width: 0px) and (max-width: 738px){
+    .logic {
+        margin-top: 500px;
+    }
+}

@@ -8,6 +8,7 @@ import { Container } from "react-bootstrap";
 import { defineDots } from "../toolkitRedux/toolkitSlice";
 import { Link, Navigate } from 'react-router-dom'
 import Register from "./register";
+import styles from "../css/main.css";
 import Box from '@mui/material/Box';
 import { AppBar, Typography } from "@mui/material";
 
@@ -95,7 +96,7 @@ export default function Login() {
                 </Box>
             </AppBar>
         </header>
-            <Container className="col-3" style={{ marginTop: '100px'}}>
+            <Container className="col-3"  style={{ marginTop: '100px'}}>
             <Form onSubmit={handleSubmit}>
                 <h3>Авторизация</h3>
                 <div className="text-danger">{error}</div>

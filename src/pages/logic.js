@@ -7,6 +7,7 @@ import { AppBar, Typography } from "@mui/material";
 import { Navigate } from 'react-router-dom';
 import { defineUser } from "../toolkitRedux/userSlice";
 import Button from '@mui/material/Button';
+import {Container, Row, Col} from "react-bootstrap";
 
 export default function Logic() {
     const dispatch = useDispatch();
@@ -68,16 +69,14 @@ export default function Logic() {
             </AppBar>
         </header>
         <Button style={{marginTop: '5px', marginLeft: '10px'}} variant="outlined" onClick={handleLogOut}>Log Out</Button>
-        <Box 
-            sx={{
-                display: 'grid',
-                gridAutoFlow: 'row',
-                marginTop: 3
-            }}>
-            <Box sx={{gridColumn: '1', gridRow: '1/1'}}><Graph radius={radius} dotsArr={dotsArr} /></Box>
-            <Box sx={{gridColumn: '2', gridRow: '1/1'}}><UserForm /></Box>
-            <Box sx={{gridColumn: '3', gridRow: '1/1'}}><UserTable /></Box>
-        </Box>
+
+        <Container >
+            <Row>
+                <Col><Graph radius={radius} dotsArr={dotsArr} /></Col>
+                <Col><UserForm /></Col>
+                <Col><UserTable/></Col>
+            </Row>
+        </Container>
 
         
         </>
