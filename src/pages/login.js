@@ -15,8 +15,11 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     
-    //const err = useSelector(item => item.userSlice.auth);
+    const err = useSelector(item => item.userSlice.auth);
     const usr = useSelector(item => item.userSlice.username);
+
+    dispatch(defineUser('initial_username'))
+    //dispatch(defineAuth(""))
 
     if(usr !== 'initial_username') {
         return (
@@ -32,12 +35,14 @@ export default function Login() {
                 "Content-Type"  :   "application/json;charset=utf-8"
             },
             body    :   JSON.stringify(user)
-        }).then(response => response.json())
+        }).then(response => response.json());
         
-        console.log(response)
-        if (response.status !== 400) {
+        if (response.status === 200) {
+            dispatch(defineAuth(""));
             dispatch(defineUser(username));
             dispatch(defineDots(response));
+        } else {
+            dispatch(defineAuth("auth failed"));
         }
     }
 
@@ -48,7 +53,6 @@ export default function Login() {
             password    :   password
         }
         sendRequest(user);
-
     }
 
         return (
@@ -56,7 +60,7 @@ export default function Login() {
             <h1>Авторизация</h1>
             <Container className="col-3" style={{ marginTop: '100px'}}>
             <Form onSubmit={handleSubmit}>
-       
+                <div className="text-danger">{err}</div>
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" placeholder="enter username" 
