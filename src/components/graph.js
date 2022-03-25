@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { pushDot, defineDots } from "../toolkitRedux/toolkitSlice"
+import { defineDots } from "../toolkitRedux/toolkitSlice"
 import "../css/graph.css"
 import { useEffect } from "react";
 
@@ -7,8 +7,13 @@ export default function Graph(props) {
     const dispatch = useDispatch();
     const username = useSelector(state => state.userSlice.username);
     
+
+
     const radius = props.radius;
-    const dotsArr = props.dotsArr;
+    //const dotsArr = props.dotsArr;
+    const dotsArr = useSelector(state => state.toolkit.dots);
+
+    console.log(dotsArr)
     
 
     useEffect(() => {
@@ -17,6 +22,7 @@ export default function Graph(props) {
             const graph = document.getElementById("area-graph");
             if (graph !== null) {
                 dotsArr.forEach(element => {
+                    console.log(element)
                     let x = element.x * (140 / radius) + 175
                     let y = -(element.y * 140 / radius) + 175
                     let dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
